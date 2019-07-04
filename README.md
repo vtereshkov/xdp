@@ -177,7 +177,7 @@ function Cos(x: Real): Real
 function Arctan(x: Real): Real  
 function Exp(x: Real): Real
 function Ln(x: Real): Real
-function SqRt(x: Real): Real`
+function SqRt(x: Real): Real
 ```
 ### Compiler 
 The compiler builds a DOS .com executable file according to the small
@@ -267,20 +267,18 @@ procedure Line(x1, y1, x2, y2, clr: Integer)
 procedure Circle(x, y, r, clr: Integer)
 procedure OutCharXY(x, y, clr: Integer; ch: Char) *
 procedure OutTextXY(x, y, clr: Integer; const s: string)
-
-* Should not be used directly.
 ```
 ### Samples
-FACTOR.PAS   - Integer factorization demo.
-LINEQ.PAS    - Linear algebraic equation systems solver. Uses GAUSS.PAS unit.
-               Requires EQ.DAT, EQERR.DAT, or similar data file.
-LIFE.PAS     - The Game of life.
-CANNABIS.PAS - Cannabola plot in polar coordinates.
-FRACTAL.PAS  - Mandelbrot set fragment plot.
-SORT.PAS     - Array sorting demo.
-FFT.PAS      - Fast Fourier Transform.
-CLOCK.PAS    - Clock demo.
-INSERR.PAS   - Inertial navigation system error estimator. Uses KALMAN.PAS unit.
-PALETTE.PAS  - Graphics palette usage demo.
-LIST.PAS     - Linked list operations demo.
+* FACTOR.PAS   - Integer factorization demo.
+* LINEQ.PAS    - Linear algebraic equation systems solver. Uses GAUSS.PAS unit.
+                 Requires EQ.DAT, EQERR.DAT, or similar data file.
+* LIFE.PAS     - The Game of life.
+* CANNABIS.PAS - Cannabola plot in polar coordinates.
+* FRACTAL.PAS  - Mandelbrot set fragment plot.
+* SORT.PAS     - Array sorting demo.
+* FFT.PAS      - Fast Fourier Transform.
+* CLOCK.PAS    - Clock demo.
+* INSERR.PAS   - Inertial navigation system error estimator. Uses KALMAN.PAS unit.
+* PALETTE.PAS  - Graphics palette usage demo.
+* LIST.PAS     - Linked list operations demo.
 
