@@ -1,4 +1,4 @@
-# XD PASCAL COMPILER
+# XD Pascal Compiler
 
 ## Summary
 A small educational compiler for a subset of the Pascal language. A native x86 machine code generator directly emits COM executables for MS-DOS. The compiler supports VGA graphics, floating-point arithmetic, etc. 32-bit Pascal source is provided.
@@ -131,12 +131,12 @@ The following identifiers are implemented as a part of the compiler. Their names
 are not reserved words and can be locally redefined by the user.
 
 Constants:
-
-`TRUE
-FALSE`
-
+```pascal
+TRUE
+FALSE
+```
 Types:
-
+```pascal
 `Integer
 SmallInt
 ShortInt
@@ -145,11 +145,11 @@ Boolean
 Real
 Pointer
 Text
-String`
-
+String
+```
 Procedures (inlined):
-
-`procedure Inc(var x: Integer)
+```pascal
+procedure Inc(var x: Integer)
 procedure Dec(var x: Integer)
 procedure Read([F: Text;] var x1 {; var xi})
 procedure Write([F: Text;] x1 {; xi})
@@ -160,11 +160,11 @@ procedure OutP(port: Integer; x: Char)
 procedure New(var P: Pointer)
 procedure Dispose(var P: Pointer)
 procedure Halt[(const error: Integer)]
-procedure Intr(const number: Integer; regs: ^TRegisters)`
-
+procedure Intr(const number: Integer; regs: ^TRegisters)
+```
 Functions (inlined):
-
-`function SizeOf(var x | T): Integer
+```pascal
+function SizeOf(var x | T): Integer
 function Ord(x: T): Integer
 function Chr(x: Integer): Char
 function Pred(x: T): T
@@ -178,29 +178,13 @@ function Arctan(x: Real): Real
 function Exp(x: Real): Real
 function Ln(x: Real): Real
 function SqRt(x: Real): Real`
-
+```
 ### Compiler 
 The compiler builds a DOS .com executable file according to the small
 memory model. The program has the segments of code (pointed by CS), 
 data (pointed by DS) and stack (pointed by SS): 
 
--------------------------- <-- CS 
-| Program Segment Prefix |
--------------------------- <-- CS:IP = CS:0100h   -
-|                        |                         |
-| Code                   |                         |
-|                        |                         |  Executable file
--------------------------- <-- DS                  |
-| Constant String Data   |                         |  
---------------------------                        -
-|                        |
-| Global variables       |
-|                        |
--------------------------- <-- SS = DS + 1000h
-|                        |
-| Stack                  |                         ^  Stack grows downwards
-|                        | <-- SS:SP = SS:FFFEh   _|  
---------------------------
+![Memory map](memory.png)
 
 A program may have up to 64 Kb of code and up to 64 Kb of data.
 It contains machine instructions with 16-bit and 32-bit operands and
@@ -210,91 +194,83 @@ procedures and functions which are never called.
 To detect them, two compilation passes are performed instead of one
 and a call graph is built.
 
-
-
-
-V. SYSTEM LIBRARY
-
+### System library
 Constants:
-
-pi;
-SEEKSTART; * 
-SEEKCUR; * 
-SEEKEND. *
-
+```pascal
+pi
+SEEKSTART * 
+SEEKCUR * 
+SEEKEND *
+```
 Types:
-
-LongInt;
-Single;
-PChar;
-TStream; *
-PStream; * 
-TRegisters. 
-
+```pascal
+LongInt
+Single
+PChar
+TStream *
+PStream * 
+TRegisters 
+```
 Variables:
-
-RandSeed: Integer;
-IOError: Integer; *
-LastReadChar: Char. *
-
+```pascal
+RandSeed: Integer
+IOError: Integer *
+LastReadChar: Char *
+```
 Procedures and functions:
-
-function Timer: Integer;
-function KeyPressed: Boolean;
-procedure Randomize;
-function Random: Real;
-function Min(x, y: Real): Real;
-function IMin(x, y: Integer): Integer;
-function Max(x, y: Real): Real;
-function IMax(x, y: Integer): Integer;
-procedure ReadConsole(var Ch: Char);
-procedure WriteConsole(Ch: Char);
-procedure Rewrite(var F: Text; const Name: string);
-procedure Reset(var F: Text; const Name: string);
-procedure Close(F: Text);.
-procedure BlockRead(F: Text; Buf: PChar; Len: SmallInt; var LenRead: SmallInt);
-procedure BlockWrite(F: Text; Buf: PChar; Len: SmallInt);
-procedure DeleteFile(const Name: string);
-function SeekFile(F: Text; Pos: Integer; Mode: ShortInt): Integer; *
-procedure Seek(F: Text; Pos: Integer);
-function FilePos(F: Text): Integer;
-function EOF(F: Text): Boolean;
-function IOResult: Integer;
-procedure WriteCh(F: Text; P: PStream; ch: Char); *
-procedure WriteInt(F: Text; P: PStream; Number: Integer); *
+```pascal
+function Timer: Integer
+function KeyPressed: Boolean
+procedure Randomize
+function Random: Real
+function Min(x, y: Real): Real
+function IMin(x, y: Integer): Integer
+function Max(x, y: Real): Real
+function IMax(x, y: Integer): Integer
+procedure ReadConsole(var Ch: Char)
+procedure WriteConsole(Ch: Char)
+procedure Rewrite(var F: Text; const Name: string)
+procedure Reset(var F: Text; const Name: string)
+procedure Close(F: Text)
+procedure BlockRead(F: Text; Buf: PChar; Len: SmallInt; var LenRead: SmallInt)
+procedure BlockWrite(F: Text; Buf: PChar; Len: SmallInt)
+procedure DeleteFile(const Name: string)
+function SeekFile(F: Text; Pos: Integer; Mode: ShortInt): Integer *
+procedure Seek(F: Text; Pos: Integer)
+function FilePos(F: Text): Integer
+function EOF(F: Text): Boolean
+function IOResult: Integer
+procedure WriteCh(F: Text; P: PStream; ch: Char) *
+procedure WriteInt(F: Text; P: PStream; Number: Integer) *
 procedure WriteHex(F: Text; P: PStream; Number: Integer; Digits: ShortInt); *
-procedure WritePointer(F: Text; P: PStream; Number: Integer); *
-procedure WriteReal(F: Text; P: PStream; Number: Real); *
-procedure WriteString(F: Text; P: PStream; const s: string); *
-procedure WriteBoolean(F: Text; P: PStream; Flag: Boolean); *
-procedure WriteNewLine(F: Text; P: PStream); *
-procedure ReadCh(F: Text; P: PStream; var ch: Char); *
-procedure ReadInt(F: Text; P: PStream; var Number: Integer); *
-procedure ReadReal(F: Text; P: PStream; var Number: Real); *
-procedure ReadString(F: Text; P: PStream; const s: string); *
-procedure ReadNewLine(F: Text; P: PStream); *
-function StrLen(const s: string): SmallInt;
-procedure StrCopy(var Dest: string; const Source: string);
-procedure StrCat(var Dest: string; const Source: string);
-function StrComp(const s1, s2: string): Integer;
-procedure Val(const s: string; var Number: Real; var Code: Integer);
-procedure Str(Number: Real; var s: string);
-procedure IVal(const s: string; var Number: Integer; var Code: Integer);
-procedure IStr(Number: Integer; var s: string);
-procedure SetScreenMode(mode: Integer);
-procedure PutPixel(x, y, clr: Integer);
-procedure Line(x1, y1, x2, y2, clr: Integer);
-procedure Circle(x, y, r, clr: Integer);
-procedure OutCharXY(x, y, clr: Integer; ch: Char); *
-procedure OutTextXY(x, y, clr: Integer; const s: string).
+procedure WritePointer(F: Text; P: PStream; Number: Integer) *
+procedure WriteReal(F: Text; P: PStream; Number: Real) *
+procedure WriteString(F: Text; P: PStream; const s: string) *
+procedure WriteBoolean(F: Text; P: PStream; Flag: Boolean) *
+procedure WriteNewLine(F: Text; P: PStream) *
+procedure ReadCh(F: Text; P: PStream; var ch: Char) *
+procedure ReadInt(F: Text; P: PStream; var Number: Integer) *
+procedure ReadReal(F: Text; P: PStream; var Number: Real) *
+procedure ReadString(F: Text; P: PStream; const s: string) *
+procedure ReadNewLine(F: Text; P: PStream) *
+function StrLen(const s: string): SmallInt
+procedure StrCopy(var Dest: string; const Source: string)
+procedure StrCat(var Dest: string; const Source: string)
+function StrComp(const s1, s2: string): Integer
+procedure Val(const s: string; var Number: Real; var Code: Integer)
+procedure Str(Number: Real; var s: string)
+procedure IVal(const s: string; var Number: Integer; var Code: Integer)
+procedure IStr(Number: Integer; var s: string)
+procedure SetScreenMode(mode: Integer)
+procedure PutPixel(x, y, clr: Integer)
+procedure Line(x1, y1, x2, y2, clr: Integer)
+procedure Circle(x, y, r, clr: Integer)
+procedure OutCharXY(x, y, clr: Integer; ch: Char) *
+procedure OutTextXY(x, y, clr: Integer; const s: string)
 
 * Should not be used directly.
-
-
-
-
-VI. SAMPLES
-
+```
+### Samples
 FACTOR.PAS   - Integer factorization demo.
 LINEQ.PAS    - Linear algebraic equation systems solver. Uses GAUSS.PAS unit.
                Requires EQ.DAT, EQERR.DAT, or similar data file.
@@ -307,5 +283,4 @@ CLOCK.PAS    - Clock demo.
 INSERR.PAS   - Inertial navigation system error estimator. Uses KALMAN.PAS unit.
 PALETTE.PAS  - Graphics palette usage demo.
 LIST.PAS     - Linked list operations demo.
-
 
