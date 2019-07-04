@@ -1,63 +1,52 @@
 # XD PASCAL COMPILER
 
+## Summary
+A small educational compiler for a subset of the Pascal language. A native x86 machine code generator directly emits COM executables for MS-DOS. The compiler supports VGA graphics, floating-point arithmetic, etc. 32-bit Pascal source is provided.
 
-Vasiliy Tereshkov
-vtereshkov@mail.ru
+### Features
+* Fast recursive descent parsing
+* Native x86 code generation (COM executables)
+* No external assembler or linker
+* Source file inclusion facility
+* Single-precision floating-point arithmetic (using the x87 FPU)
+* VGA graphics support
+* Compiler source for both Windows (Delphi) and DOS (TMT Pascal)
 
-February 2009 - June 2010
-
-
-
-
-I. PREAMBLE
-
-
+## Detailed description
+### Preamble
 The software is in the public domain. It comes with absolutely no warranty.
 Any comments, suggestions, or bug reports are VERY MUCH appreciated. 
 Feel free to contact me via e-mail. 
 
 Enjoy.
 
-
-
-
-II. USAGE
-
-
+### Usage
 Type in the command prompt:
 
-xdp <file.pas> [/n]
+`xdp <file.pas> [/n]`
 
-Option: /n - disable code optimization.
+Option: `/n` - disable code optimization.
 
 The source file should be specified with its extension (.pas).
  
+### Language
 
-
-
-III. LANGUAGE
-
-
-a. Overview
-
+#### Overview
 XD Pascal is a dialect of Pascal programming language that resembles
 Turbo Pascal v. 3.0 with the following differences and limitations:
-
-– There are no labels, "goto" and "with" statements. 
-- Unsigned integers, sets, enumerations, and variant records are not supported.
-– Strings are null-terminated arrays of characters (C style). String 
+* There are no labels, "goto" and "with" statements. 
+* Unsigned integers, sets, enumerations, and variant records are not supported.
+* Strings are null-terminated arrays of characters (C style). String 
   manipulation routines should be used instead of direct concatenation
   or comparison.
-- The only file type is Text. It can be used for both text and untyped files.
-- Structured parameters cannot be passed to subroutines by value.
-– The predefined Result variable can be used instead of function 
+* The only file type is Text. It can be used for both text and untyped files.
+* Structured parameters cannot be passed to subroutines by value.
+* The predefined Result variable can be used instead of function 
   name in assignments (Delphi style).
-- Single-line comments ("//") are supported (Delphi style).  
+* Single-line comments ("//") are supported (Delphi style).  
 
-
-
-b. Formal grammar
-
+#### Formal grammar
+```
 Program = "program" Ident ";" Block "." .
 
 Block = { [ "const" Ident "=" ConstExpression ";"
@@ -135,70 +124,62 @@ CharLiteral = "'" (Character | "'" "'") "'" |
               "#" Number .
 
 StringLiteral = "'" {Character | "'" "'"} "'".
+```
 
-
-
-c. Predefined identifiers
-
+#### Predefined identifiers
 The following identifiers are implemented as a part of the compiler. Their names
 are not reserved words and can be locally redefined by the user.
 
 Constants:
 
-TRUE;
-FALSE.
+`TRUE
+FALSE`
 
 Types:
 
-Integer;
-SmallInt;
-ShortInt;
-Char;
-Boolean;
-Real;
-Pointer;
-Text;
-String.
+`Integer
+SmallInt
+ShortInt
+Char
+Boolean
+Real
+Pointer
+Text
+String`
 
 Procedures (inlined):
 
-procedure Inc(var x: Integer);
-procedure Dec(var x: Integer);
-procedure Read([F: Text;] var x1 {; var xi});
-procedure Write([F: Text;] x1 {; xi});
-procedure ReadLn([F: Text;] var x1 {; var xi});
-procedure WriteLn([F: Text;] x1 {; xi});
-procedure InP(port: Integer; var x: Char);
-procedure OutP(port: Integer; x: Char);
-procedure New(var P: Pointer);
-procedure Dispose(var P: Pointer);
-procedure Halt[(const error: Integer)];
-procedure Intr(const number: Integer; regs: ^TRegisters).
+`procedure Inc(var x: Integer)
+procedure Dec(var x: Integer)
+procedure Read([F: Text;] var x1 {; var xi})
+procedure Write([F: Text;] x1 {; xi})
+procedure ReadLn([F: Text;] var x1 {; var xi})
+procedure WriteLn([F: Text;] x1 {; xi})
+procedure InP(port: Integer; var x: Char)
+procedure OutP(port: Integer; x: Char)
+procedure New(var P: Pointer)
+procedure Dispose(var P: Pointer)
+procedure Halt[(const error: Integer)]
+procedure Intr(const number: Integer; regs: ^TRegisters)`
 
 Functions (inlined):
 
-function SizeOf(var x | T): Integer;
-function Ord(x: T): Integer;
-function Chr(x: Integer): Char;
-function Pred(x: T): T;
-function Succ(x: T): T;
-function Round(x: Real): Integer; 
-function Abs(x: T): T;
-function Sqr(x: T): T;
-function Sin(x: Real): Real;  
-function Cos(x: Real): Real;  
-function Arctan(x: Real): Real;  
-function Exp(x: Real): Real;
-function Ln(x: Real): Real;
-function SqRt(x: Real): Real.
+`function SizeOf(var x | T): Integer
+function Ord(x: T): Integer
+function Chr(x: Integer): Char
+function Pred(x: T): T
+function Succ(x: T): T
+function Round(x: Real): Integer 
+function Abs(x: T): T
+function Sqr(x: T): T
+function Sin(x: Real): Real  
+function Cos(x: Real): Real  
+function Arctan(x: Real): Real  
+function Exp(x: Real): Real
+function Ln(x: Real): Real
+function SqRt(x: Real): Real`
 
-* Should not be used directly.
-
-
-
-
-IV. COMPILER 
-
+### Compiler 
 The compiler builds a DOS .com executable file according to the small
 memory model. The program has the segments of code (pointed by CS), 
 data (pointed by DS) and stack (pointed by SS): 
