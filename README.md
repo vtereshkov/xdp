@@ -17,16 +17,14 @@ A small educational compiler for a subset of the Pascal language. A native x86 m
 The software is in the public domain. It comes with absolutely no warranty.
 Any comments, suggestions, or bug reports are VERY MUCH appreciated. 
 Feel free to contact me via e-mail. 
-
 Enjoy.
 
 ### Usage
 Type in the command prompt:
-
-`xdp <file.pas> [/n]`
-
+```
+xdp <file.pas> [/n]`
+```
 Option: `/n` - disable code optimization.
-
 The source file should be specified with its extension (.pas).
  
 ### Language
@@ -137,7 +135,7 @@ FALSE
 ```
 Types:
 ```pascal
-`Integer
+Integer
 SmallInt
 ShortInt
 Char
@@ -195,6 +193,8 @@ To detect them, two compilation passes are performed instead of one
 and a call graph is built.
 
 ### System library
+Items marked with * should not be used directly.
+
 Constants:
 ```pascal
 pi
