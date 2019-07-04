@@ -22,7 +22,7 @@ Enjoy.
 ### Usage
 Type in the command prompt:
 ```
-xdp <file.pas> [/n]`
+xdp <file.pas> [/n]
 ```
 Option: `/n` - disable code optimization.
 The source file should be specified with its extension (.pas).
