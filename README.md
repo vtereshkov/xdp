@@ -1,7 +1,7 @@
 # XD Pascal Compiler
 
 ## Summary
-A small educational compiler for a subset of the Pascal language. A native x86 machine code generator directly emits COM executables for MS-DOS. The compiler supports VGA graphics, floating-point arithmetic, etc. 32-bit Pascal source is provided.
+XD Pascal is a small educational compiler for a subset of the Pascal language. A native x86 machine code generator directly emits COM executables for MS-DOS. The compiler supports VGA graphics, floating-point arithmetic, etc. 32-bit Pascal source is provided.
 
 ### Features
 * Fast recursive descent parsing
@@ -270,14 +270,14 @@ procedure OutTextXY(x, y, clr: Integer; const s: string)
 ```
 ### Samples
 * `FACTOR.PAS`   - Integer factorization demo.
-* `LINEQ.PAS`    - Linear algebraic equation systems solver. Uses GAUSS.PAS unit. Requires EQ.DAT, EQERR.DAT, or similar data file.
+* `LINEQ.PAS`    - Linear algebraic equation systems solver. Uses `GAUSS.PAS` unit. Requires `EQ.DAT`, `EQERR.DAT`, or similar data file.
 * `LIFE.PAS`     - The Game of life.
 * `CANNABIS.PAS` - Cannabola plot in polar coordinates.
 * `FRACTAL.PAS`  - Mandelbrot set fragment plot.
 * `SORT.PAS`     - Array sorting demo.
 * `FFT.PAS`      - Fast Fourier Transform.
 * `CLOCK.PAS`    - Clock demo.
-* `INSERR.PAS`   - Inertial navigation system error estimator. Uses KALMAN.PAS unit.
+* `INSERR.PAS`   - Inertial navigation system error estimator. Uses `KALMAN.PAS` unit.
 * `PALETTE.PAS`  - Graphics palette usage demo.
 * `LIST.PAS`     - Linked list operations demo.
 
